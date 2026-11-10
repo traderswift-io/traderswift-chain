@@ -30,7 +30,7 @@ Your node checks and orders transactions. The chain holds identities and hashes 
 Either build it from source:
 
 ```
-git clone <this repository> traderswift-chain
+git clone https://github.com/traderswift-io/traderswift-chain.git
 cd traderswift-chain
 go build -trimpath -o traderswiftd .     # Go 1.26.5, as in go.mod
 sha256sum traderswiftd
