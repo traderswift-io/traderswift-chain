@@ -1,0 +1,57 @@
+name: Validator key
+description: Post your consensus public key and node ID so the admin can add you to the validator set
+title: "validator: <your moniker>"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Follow [docs/VALIDATOR_JOIN.md](../blob/main/docs/VALIDATOR_JOIN.md) first. This form is step 7, "We add you".
+
+        Public keys and IDs only. Nothing here lets anyone act as you. **Never paste `priv_validator_key.json` or `node_key.json`.**
+  - type: input
+    id: moniker
+    attributes:
+      label: Moniker
+      description: The name you gave `traderswiftd init`.
+    validations:
+      required: true
+  - type: textarea
+    id: consensus_public_key
+    attributes:
+      label: Consensus public key
+      description: The full output of `traderswiftd comet show-validator --home /var/lib/traderswift/chain`.
+      render: json
+    validations:
+      required: true
+  - type: input
+    id: node_id
+    attributes:
+      label: Node ID
+      description: The output of `traderswiftd comet show-node-id --home /var/lib/traderswift/chain`.
+    validations:
+      required: true
+  - type: input
+    id: public_address
+    attributes:
+      label: Public IP and p2p port
+      placeholder: 203.0.113.10:26656
+    validations:
+      required: true
+  - type: input
+    id: height
+    attributes:
+      label: Your height
+      description: From `curl -s http://127.0.0.1:26657/status | jq -r .result.sync_info.latest_block_height`. Write "before genesis" if the chain has not started yet.
+    validations:
+      required: true
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Before you submit
+      options:
+        - label: I have pasted public keys and IDs only, no private key file.
+          required: true
+        - label: Only one node runs with this consensus key.
+          required: true
+        - label: My node is synced (`catching_up` is `false`), or the chain has not started yet.
+          required: true

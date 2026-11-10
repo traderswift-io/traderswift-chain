@@ -1,0 +1,249 @@
+syntax = "proto3";
+
+package traderswift.network.v1;
+
+import "cosmos/msg/v1/msg.proto";
+
+option go_package = "traderswift-chain/network";
+
+message Account {
+  string account_id = 1;
+  string registration_key = 2;
+  string owner_address = 3;
+  uint64 expiry = 4;
+}
+
+message Charter {
+  string subnet = 1;
+  uint64 version = 2;
+  string charter_hash = 3;
+  repeated string provider_kinds = 4;
+  repeated string segment_kinds = 5;
+  repeated string operators = 6;
+  uint64 height = 7;
+  string join = 8;
+}
+
+message Provider {
+  string subnet = 1;
+  string provider_id = 2;
+  string provider_kind = 3;
+  string provider_address = 4;
+  string account_id = 5;
+  string endpoint = 6;
+  uint64 height = 7;
+  uint64 endorsed_height = 8;
+}
+
+message Endorsement {
+  string subnet = 1;
+  string provider_id = 2;
+  string endorser_id = 3;
+  uint64 height = 4;
+}
+
+message Veto {
+  string subnet = 1;
+  string target_kind = 2;
+  string target_id = 3;
+  string reason_code = 4;
+  string reason = 5;
+  uint64 height = 6;
+}
+
+message Anchor {
+  string subnet = 1;
+  string segment_kind = 2;
+  string segment_id = 3;
+  string provider_id = 4;
+  string segment_hash = 5;
+  uint64 height = 6;
+  bool vetoed = 7;
+  bool endorsed = 8;
+}
+
+message GenesisState {
+  repeated Account accounts = 1;
+  repeated Charter charters = 2;
+  repeated Provider providers = 3;
+  repeated Veto vetoes = 4;
+  repeated Anchor anchors = 5;
+  repeated Endorsement endorsements = 6;
+}
+
+service Msg {
+  option (cosmos.msg.v1.service) = true;
+  rpc RegisterAccount(MsgRegisterAccount) returns (MsgRegisterAccountResponse);
+  rpc ClaimOwner(MsgClaimOwner) returns (MsgClaimOwnerResponse);
+  rpc SetCharter(MsgSetCharter) returns (MsgSetCharterResponse);
+  rpc RegisterProvider(MsgRegisterProvider) returns (MsgRegisterProviderResponse);
+  rpc Veto(MsgVeto) returns (MsgVetoResponse);
+  rpc Anchor(MsgAnchor) returns (MsgAnchorResponse);
+  rpc EndorseProvider(MsgEndorseProvider) returns (MsgEndorseProviderResponse);
+}
+
+message MsgRegisterAccount {
+  option (cosmos.msg.v1.signer) = "submitter";
+  string submitter = 1;
+  string account_id = 2;
+  string registration_key = 3;
+  uint64 expiry = 4;
+}
+message MsgRegisterAccountResponse {}
+
+message MsgClaimOwner {
+  option (cosmos.msg.v1.signer) = "submitter";
+  string submitter = 1;
+  string account_id = 2;
+  string owner_address = 3;
+  string nonce = 4;
+  uint64 issued_at = 5;
+  uint64 expires_at = 6;
+  string owner_signature = 7;
+  string registration_signature = 8;
+}
+message MsgClaimOwnerResponse {}
+
+message MsgSetCharter {
+  option (cosmos.msg.v1.signer) = "submitter";
+  string submitter = 1;
+  string subnet = 2;
+  uint64 version = 3;
+  string charter_hash = 4;
+  repeated string provider_kinds = 5;
+  repeated string segment_kinds = 6;
+  repeated string operators = 7;
+  string join = 8;
+}
+message MsgSetCharterResponse {}
+
+message MsgRegisterProvider {
+  option (cosmos.msg.v1.signer) = "submitter";
+  string submitter = 1;
+  string subnet = 2;
+  string provider_id = 3;
+  string provider_kind = 4;
+  string provider_address = 5;
+  string account_id = 6;
+  string endpoint = 7;
+  string owner_signature = 8;
+}
+message MsgRegisterProviderResponse {}
+
+message MsgVeto {
+  option (cosmos.msg.v1.signer) = "submitter";
+  string submitter = 1;
+  string subnet = 2;
+  string target_kind = 3;
+  string target_id = 4;
+  string reason_code = 5;
+  string reason = 6;
+}
+message MsgVetoResponse {}
+
+message MsgAnchor {
+  option (cosmos.msg.v1.signer) = "submitter";
+  string submitter = 1;
+  string subnet = 2;
+  string segment_kind = 3;
+  string segment_id = 4;
+  string segment_hash = 5;
+  string provider_id = 6;
+}
+message MsgAnchorResponse {}
+
+message MsgEndorseProvider {
+  option (cosmos.msg.v1.signer) = "submitter";
+  string submitter = 1;
+  string subnet = 2;
+  string provider_id = 3;
+}
+message MsgEndorseProviderResponse {}
+
+service Query {
+  rpc Account(QueryAccountRequest) returns (QueryAccountResponse);
+  rpc Charter(QueryCharterRequest) returns (QueryCharterResponse);
+  rpc Provider(QueryProviderRequest) returns (QueryProviderResponse);
+  rpc Providers(QueryProvidersRequest) returns (QueryProvidersResponse);
+  rpc Veto(QueryVetoRequest) returns (QueryVetoResponse);
+  rpc Vetoes(QueryVetoesRequest) returns (QueryVetoesResponse);
+  rpc Anchor(QueryAnchorRequest) returns (QueryAnchorResponse);
+  rpc Anchors(QueryAnchorsRequest) returns (QueryAnchorsResponse);
+  rpc Endorsements(QueryEndorsementsRequest) returns (QueryEndorsementsResponse);
+}
+
+message QueryAccountRequest {
+  string account_id = 1;
+}
+message QueryAccountResponse {
+  Account account = 1;
+}
+
+message QueryCharterRequest {
+  string subnet = 1;
+  uint64 version = 2;
+}
+message QueryCharterResponse {
+  Charter charter = 1;
+  bool vetoed = 2;
+}
+
+message QueryProviderRequest {
+  string subnet = 1;
+  string provider_id = 2;
+}
+message QueryProviderResponse {
+  Provider provider = 1;
+  bool vetoed = 2;
+}
+
+message QueryProvidersRequest {
+  string subnet = 1;
+  string provider_kind = 2;
+}
+message QueryProvidersResponse {
+  repeated Provider providers = 1;
+}
+
+message QueryVetoRequest {
+  string subnet = 1;
+  string target_kind = 2;
+  string target_id = 3;
+}
+message QueryVetoResponse {
+  Veto veto = 1;
+}
+
+message QueryVetoesRequest {
+  string subnet = 1;
+}
+message QueryVetoesResponse {
+  repeated Veto vetoes = 1;
+}
+
+message QueryAnchorRequest {
+  string subnet = 1;
+  string segment_kind = 2;
+  string segment_id = 3;
+  string provider_id = 4;
+}
+message QueryAnchorResponse {
+  Anchor anchor = 1;
+}
+
+message QueryAnchorsRequest {
+  string subnet = 1;
+  string segment_kind = 2;
+  string segment_id = 3;
+}
+message QueryAnchorsResponse {
+  repeated Anchor anchors = 1;
+}
+
+message QueryEndorsementsRequest {
+  string subnet = 1;
+  string provider_id = 2;
+}
+message QueryEndorsementsResponse {
+  repeated Endorsement endorsements = 1;
+}

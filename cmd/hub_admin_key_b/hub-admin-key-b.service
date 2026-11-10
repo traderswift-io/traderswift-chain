@@ -1,0 +1,17 @@
+[Unit]
+Description=hub_admin_key_b: admin key B of the traderswift-1 2-of-3 admin; signs only the fixed routine allowlist, on 127.0.0.1
+After=network-online.target
+
+[Service]
+Type=simple
+User=traderswift
+ExecStart=/opt/traderswift/bin/hub_admin_key_b serve --config /etc/traderswift/hub_admin_key_b.json
+Restart=on-failure
+RestartSec=10
+UMask=0077
+LimitCORE=0
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=yes
+ReadOnlyPaths=/var/lib/traderswift/hub_admin_key_b
