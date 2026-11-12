@@ -41,7 +41,7 @@ body:
     id: height
     attributes:
       label: Your height
-      description: From `curl -s http://127.0.0.1:26657/status | jq -r .result.sync_info.latest_block_height`. Write "before genesis" if the chain has not started yet.
+      description: From `curl -s http://127.0.0.1:26657/status | jq -r .result.sync_info.latest_block_height`.
     validations:
       required: true
   - type: checkboxes

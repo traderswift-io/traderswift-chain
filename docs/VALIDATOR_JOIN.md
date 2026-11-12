@@ -63,16 +63,9 @@ Back up `priv_validator_key.json` offline. Never send it to anyone, us included.
 
 You send us nothing yet. Section 7 says what to send once you are synced.
 
-### Joining at genesis
+### When you join
 
-Until the freeze (Mon 16 Nov 2026 12:00 UTC) you can be in the genesis file itself, with no sync and no transaction:
-
-1. Run sections 1 to 3 now. Do not start the node.
-2. Open **New issue, then Validator key** in this repository. Paste `comet show-validator` and `comet show-node-id` (the commands in section 7), your public IP and p2p port, and write `before genesis` for your height.
-3. At the freeze we add your consensus public key to `app_state.validatorset.validators` with `founding` false and power under one third of the total. We also add `<node id>@<ip>:26656` to `peers.txt` and publish `genesis.json` and `genesis.sha256` in `networks/traderswift-1/`. The issue gets a comment with the genesis hash.
-4. Run section 4 with that genesis, then section 6. Start before genesis time (Tue 17 Nov 2026 12:00 UTC); your node waits and signs from block 1.
-
-A key posted after the freeze joins the normal way: sync, then section 7.
+Genesis is Fri 13 Nov 2026 11:13 UTC, with the TraderSwift hub validators only. Every outside validator joins after launch the normal way: run sections 1 to 6, sync, then section 7. We add you with `add-validator` (not a founding validator, power under one third of the total).
 
 ## 4. Genesis and peers
 
