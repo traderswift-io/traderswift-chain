@@ -65,7 +65,7 @@ You send us nothing yet. Section 7 says what to send once you are synced.
 
 ### When you join
 
-Genesis is Fri 13 Nov 2026 11:13 UTC, with the TraderSwift hub validators only. Every outside validator joins after launch the normal way: run sections 1 to 6, sync, then section 7. We add you with `add-validator` (not a founding validator, power under one third of the total).
+Genesis is Sat 14 Nov 2026 14:13 UTC, with the TraderSwift hub validators only. Every outside validator joins after launch the normal way: run sections 1 to 6, sync, then section 7. We add you with `add-validator` (not a founding validator, power under one third of the total).
 
 ## 4. Genesis and peers
 

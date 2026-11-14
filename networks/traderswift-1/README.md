@@ -6,8 +6,8 @@ The hub network: accounts and identity, charters, providers, vetoes, anchors, an
 |---|---|
 | Chain ID | `traderswift-1` |
 | Binary | `traderswiftd`, built from this repository |
-| Genesis | `genesis.json` and `genesis.sha256`, added here at the freeze (Fri 13 Nov 2026 08:00 UTC) |
-| Genesis time | Fri 13 Nov 2026 11:13 UTC |
+| Genesis | `genesis.json` and `genesis.sha256`, added here at the freeze (Sat 14 Nov 2026) |
+| Genesis time | Sat 14 Nov 2026 14:13 UTC |
 | Peers | `peers.txt`, one `nodeid@ip:26656` per line, added at genesis |
 | Validators | four founding: `hub-1` and `hub-2` at `5000000`, `hub-3` and `hub-4` at `10000000`. Outside validators join after launch by `add-validator`, non-founding |
 

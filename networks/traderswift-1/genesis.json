@@ -1,0 +1,202 @@
+{
+  "app_name": "<appd>",
+  "app_version": "",
+  "genesis_time": "2026-11-14T14:13:00Z",
+  "chain_id": "traderswift-1",
+  "initial_height": 1,
+  "app_hash": null,
+  "app_state": {
+    "auth": {
+      "params": {
+        "max_memo_characters": "256",
+        "tx_sig_limit": "7",
+        "tx_size_cost_per_byte": "10",
+        "sig_verify_cost_ed25519": "590",
+        "sig_verify_cost_secp256k1": "1000",
+        "sig_verify_cost_mldsa65": "750"
+      },
+      "accounts": [
+        {
+          "@type": "/cosmos.auth.v1beta1.BaseAccount",
+          "address": "traderswift1wg5uy5dcuueu4fp0m568h7d0u79762hmutz3rj",
+          "pub_key": null,
+          "account_number": "0",
+          "sequence": "0"
+        }
+      ]
+    },
+    "consensus": null,
+    "genutil": {
+      "gen_txs": []
+    },
+    "network": {
+      "accounts": [
+        {
+          "account_id": "traderswift",
+          "registration_key": "d99ec7d3717051ad283aaf63aa1a31a288ddb7bad5e8e10ef8279b7b101675f6",
+          "owner_address": "0xc56bbe2d87151a6031d2a270253c9abba1b53b1b",
+          "expiry": "0"
+        }
+      ],
+      "charters": [
+        {
+          "subnet": "signer",
+          "version": "1",
+          "charter_hash": "c8da9af108c249dbc5a12452c44fcf50164f334314dd93edae1d22230cbf34be",
+          "provider_kinds": [
+            "validator",
+            "coordinator"
+          ],
+          "segment_kinds": [
+            "state",
+            "meter"
+          ],
+          "operators": [
+            "traderswift1wg5uy5dcuueu4fp0m568h7d0u79762hmutz3rj"
+          ],
+          "height": "1",
+          "join": "endorsed"
+        },
+        {
+          "subnet": "timeseries",
+          "version": "1",
+          "charter_hash": "c850f66134a39fd0953c1dcdb3a308709943cf4faaa514ce0d4356af3da168f3",
+          "provider_kinds": [
+            "store",
+            "serve"
+          ],
+          "segment_kinds": [
+            "candle_root",
+            "meter"
+          ],
+          "operators": [
+            "traderswift1wg5uy5dcuueu4fp0m568h7d0u79762hmutz3rj"
+          ],
+          "height": "1",
+          "join": "endorsed"
+        }
+      ],
+      "providers": [
+        {
+          "subnet": "timeseries",
+          "provider_id": "timeseries-node-1-store",
+          "provider_kind": "store",
+          "provider_address": "traderswift1g4kkn2w9q6enq4qmmuhce2zqd3n6ntdhztmcjj",
+          "account_id": "traderswift",
+          "endpoint": "https://charts.traderswift.io/public/v1",
+          "height": "1",
+          "endorsed_height": "1"
+        },
+        {
+          "subnet": "timeseries",
+          "provider_id": "timeseries-node-1-serve",
+          "provider_kind": "serve",
+          "provider_address": "traderswift1a22s8ecgxy44ehsejejnavz25x5s2e5zph0yy3",
+          "account_id": "traderswift",
+          "endpoint": "https://charts.traderswift.io/public/v1",
+          "height": "1",
+          "endorsed_height": "1"
+        },
+        {
+          "subnet": "timeseries",
+          "provider_id": "timeseries-node-2-store",
+          "provider_kind": "store",
+          "provider_address": "traderswift19mj2eua9ads448g8uwch6jgpjuanv39htvtvlt",
+          "account_id": "traderswift",
+          "endpoint": "",
+          "height": "1",
+          "endorsed_height": "1"
+        },
+        {
+          "subnet": "timeseries",
+          "provider_id": "timeseries-node-2-serve",
+          "provider_kind": "serve",
+          "provider_address": "traderswift1tr2dskychj0vqtfmyc45vhrm8vpu0twml7tgjh",
+          "account_id": "traderswift",
+          "endpoint": "",
+          "height": "1",
+          "endorsed_height": "1"
+        },
+        {
+          "subnet": "timeseries",
+          "provider_id": "timeseries-node-3-store",
+          "provider_kind": "store",
+          "provider_address": "traderswift19c5jwdk3x36m9e0xs7swd5lcryumwuyg9w6t9q",
+          "account_id": "traderswift",
+          "endpoint": "",
+          "height": "1",
+          "endorsed_height": "1"
+        },
+        {
+          "subnet": "timeseries",
+          "provider_id": "timeseries-node-3-serve",
+          "provider_kind": "serve",
+          "provider_address": "traderswift1ut5qk72phwlsrt3fm0yrtxustlluv0m4x2z5sf",
+          "account_id": "traderswift",
+          "endpoint": "",
+          "height": "1",
+          "endorsed_height": "1"
+        }
+      ],
+      "vetoes": [],
+      "anchors": [],
+      "endorsements": []
+    },
+    "validatorset": {
+      "admin": "traderswift1wg5uy5dcuueu4fp0m568h7d0u79762hmutz3rj",
+      "validators": [
+        {
+          "consensus_public_key": "zvGwQzpLTYxomVXiuOPgVtR7fBZophconklSiFG1vNs=",
+          "power": "10000000",
+          "moniker": "hub-1",
+          "founding": true
+        },
+        {
+          "consensus_public_key": "Ph/39GnWzU7T8VhEBsFgWYwZb4xfYaJqCzC3VQ2uj38=",
+          "power": "10000000",
+          "moniker": "hub-2",
+          "founding": true
+        },
+        {
+          "consensus_public_key": "aP8sQCn9pdY9k9Qt1sokaS1qBAc1YTHtlHfAeXUMKLs=",
+          "power": "10000000",
+          "moniker": "hub-3",
+          "founding": true
+        },
+        {
+          "consensus_public_key": "p7zVNbiQ8XByjqJKx70bER3FyH3y09/TAsnhWWyl1X8=",
+          "power": "10000000",
+          "moniker": "hub-4",
+          "founding": true
+        }
+      ]
+    }
+  },
+  "consensus": {
+    "params": {
+      "block": {
+        "max_bytes": "2000000",
+        "max_gas": "100000000"
+      },
+      "evidence": {
+        "max_age_num_blocks": "100000",
+        "max_age_duration": "172800000000000",
+        "max_bytes": "1048576"
+      },
+      "validator": {
+        "pub_key_types": [
+          "ed25519"
+        ]
+      },
+      "version": {
+        "app": "0"
+      },
+      "abci": {
+        "vote_extensions_enable_height": "0"
+      },
+      "authority": {
+        "authority": ""
+      }
+    }
+  }
+}
