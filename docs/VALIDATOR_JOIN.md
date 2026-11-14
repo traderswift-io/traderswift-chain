@@ -2,7 +2,7 @@
 
 For an outside operator. You run one node that produces blocks on `traderswift-1`, the hub chain every subnet anchors onto. Everything you need is in this repository. You can clone, configure, start and sync without contacting us. The only step that involves us is the last one, adding you to the validator set (section 7).
 
-A validator and a provider are different things. A validator produces blocks and needs us once (section 7). A provider (a Charts data node, say) offers a subnet's service and anchors its hashes; it joins with no contact at all (section 11).
+A validator and a provider are different things. A validator produces blocks and needs us once (section 7). A provider (a timeseries provider, say) offers a subnet's service and anchors its hashes; it joins with no contact at all (section 11).
 
 The network files are in [`networks/traderswift-1/`](../networks/traderswift-1/): chain ID, `genesis.json`, its SHA-256 and the peer list.
 
@@ -228,9 +228,9 @@ Registration is open. Genesis seeds only the founding providers; no charter name
      --provider-id <your id> --from <your key> --chain-id traderswift-1
    ```
 
-**Endorsement.** Under `join: open` you are endorsed at registration. Under `join: endorsed` (`timeseries` and `signer`) your anchors are on the record with `endorsed: false` and do not count toward the subnet's agreement rule until an endorsed provider of that subnet, or a charter operator, sends `endorse-provider --subnet <subnet> --provider-id <your id>`. For `timeseries` this is mechanical: once your `candle_root` anchors match the endorsed nodes' roots, an endorsed node's operator endorses you on that evidence. You do not message us. Watch it at `/network/v1/provider/<subnet>/<your id>` (`endorsed`, `endorsed_height`) and `/network/v1/endorsements/<subnet>/<your id>`.
+**Endorsement.** Under `join: open` you are endorsed at registration. Under `join: endorsed` (`timeseries` and `signer`) your anchors are on the record with `endorsed: false` and do not count toward the subnet's agreement rule. Once an endorsed provider of that subnet, or a charter operator, sends `endorse-provider --subnet <subnet> --provider-id <your id>`, new anchors carry `endorsed: true`. Each old anchor keeps the `endorsed` flag it had when sent. For `timeseries`, endorsing you once your `candle_root` anchors match the endorsed nodes' roots is operator policy; the code does not check roots. You do not message us. Watch it at `/network/v1/provider/<subnet>/<your id>` (`endorsed`, `endorsed_height`) and `/network/v1/endorsements/<subnet>/<your id>`.
 
-**What can stop you.** Only `MsgVeto` from the network admin, on legal or regulatory grounds, with the reason public at `/network/v1/vetoes/<subnet>`. A vetoed provider's anchors are refused from then on; its past anchors stay.
+**What can stop you.** `MsgVeto` from the network admin, on legal or regulatory grounds, with the reason public at `/network/v1/vetoes/<subnet>`. A vetoed provider's anchors are refused from then on; its past anchors stay. The admin's `SetCharter` can also drop a segment kind. Anchors whose `segment_kind` is not in the live charter are refused.
 
 **Addresses.** Chain addresses use the bech32 prefix `traderswift`: accounts `traderswift1...`, validator operators `traderswiftvaloper1...`, consensus addresses `traderswiftvalcons1...`. A `cosmos1...` address, the default in most Cosmos wallets, is the same key under another prefix: the 20 bytes behind it are unchanged, so it re-encodes to one `traderswift1...` address with no new key and no new signature: `traderswiftd keys parse <cosmos1...>` prints the bytes, then `traderswiftd keys parse <those hex bytes>` prints the `traderswift1...` form. Use the `traderswift1...` form in every command and REST path here, for example `curl -s <rest>/network/v1/first_contact/traderswift1...` or `curl -s <rest>/cosmos/auth/v1beta1/accounts/traderswift1...`.
 
@@ -241,6 +241,6 @@ traderswiftd tx network register-account ... --from <your key> --generate-only -
 traderswiftd tx sign unsigned.json --from <your key> --chain-id traderswift-1 --offline --account-number "$account_number" --sequence 0 > signed.json
 traderswiftd tx broadcast signed.json --node <rpc>
 ```
-From then on send transactions normally. At most 20 new accounts are created in one block; if yours is refused with `account_cap`, resend it in the next block. A first transaction with any other message (an `anchor`, say) is refused and creates nothing. An unclaimed hub account expires at its `expiry`; the chain account stays.
+From then on send transactions normally. At most 20 first-contact signers get new chain accounts in one block; if yours is refused with `account_cap`, resend it in the next block. Provider accounts created through an operator's `RegisterProvider` do not count toward this limit. A first transaction with any other message (an `anchor`, say) is refused and creates nothing. An unclaimed hub account expires at its `expiry`; the chain account stays.
 
 Being a provider gives you no vote in block production; that is section 7.
