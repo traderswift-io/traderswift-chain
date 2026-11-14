@@ -41,7 +41,7 @@ Node `n` listens on `47000 + 10n`: `+0` p2p, `+1` CometBFT RPC, `+2` REST, `+3` 
 | `Veto` (`subnet`, `target_kind`, `target_id`, `reason_code`, `reason`) | network admin | not the admin, kind not `charter`/`provider`/`anchor`, reason code not `legal`/`regulatory`, empty reason, target missing, already vetoed |
 | `Anchor` (`subnet`, `segment_kind`, `segment_id`, `segment_hash`, `provider_id`) | the provider's `provider_address` | no live charter, kind not in it, provider unknown or vetoed, wrong signer, key used |
 
-Registration is open: nothing in a charter or genesis names a provider. The gates are the hub account (it exists, its `owner_address` is claimed) and the owner's signature. Operators are extra registrars, never the only ones.
+Registration is open: genesis seeds the founding providers (six `timeseries` nodes); every later provider registers itself, and no charter names one. The gates are the hub account (it exists, its `owner_address` is claimed) and the owner's signature. Operators are extra registrars, never the only ones.
 
 Registration records; endorsement counts. `Provider.endorsed_height` is 0 until endorsed. Under `join: open` a provider is endorsed at registration. Under `join: endorsed` the first `EndorseProvider` sets it; every endorsement is stored as `Endorsement{subnet, provider_id, endorser_id, height}`, where `endorser_id` is the endorsing provider's id or the operator's address. Anchors are accepted from every registered, unvetoed provider either way, and each `Anchor` carries `endorsed`, the provider's state when it anchored. A subnet's agreement rule counts only `endorsed` anchors; the chain stores, it does not count.
 

@@ -205,7 +205,7 @@ We announce a new release in this repository with its hash and the height to swi
 
 ## 11. Joining a subnet as a provider: zero contact
 
-Registration is open. No charter and no genesis names a provider, and no one at TraderSwift approves it. The gates are a hub account with a claimed owner, and the owner's signature. You need a key of your own (its first transaction makes it a chain account; see "Your chain account" below), a hub account id, and any EVM wallet as the owner.
+Registration is open. Genesis seeds only the founding providers; no charter names a provider, and no one at TraderSwift approves a new one. The gates are a hub account with a claimed owner, and the owner's signature. You need a key of your own (its first transaction makes it a chain account; see "Your chain account" below), a hub account id, and any EVM wallet as the owner.
 
 1. **Hub account.** Choose an `account_id` and an ed25519 registration key, and register it yourself or through any sponsor. `expiry` is a Unix time in the future; an unclaimed id past it can be taken again.
    ```
@@ -218,17 +218,17 @@ Registration is open. No charter and no genesis names a provider, and no one at 
    ```
 3. **Register the provider**, signed by the provider address itself. The wallet signs the `register provider` text in the README over `subnet, provider_id, provider_kind, provider_address, endpoint`. Read the charter first (`/network/v1/charter/<subnet>`) for the allowed `provider_kinds` and the `join` rule.
    ```
-   traderswiftd tx network register-provider --subnet charts --provider-id <your id> --provider-kind data_node \
+   traderswiftd tx network register-provider --subnet timeseries --provider-id <your id> --provider-kind store \
      --provider-address <your chain address> --account-id <account_id> --endpoint "<public endpoint or empty>" \
      --owner-signature <130 hex> --from <your key> --chain-id traderswift-1
    ```
 4. **Anchor.** From the provider address, anchor your segments as the subnet's charter says. They are accepted and stored from day one:
    ```
-   traderswiftd tx network anchor --subnet charts --segment-kind candle_root --segment-id 2026-11-17 --segment-hash <sha256 hex> \
+   traderswiftd tx network anchor --subnet timeseries --segment-kind candle_root --segment-id 2026-11-17 --segment-hash <sha256 hex> \
      --provider-id <your id> --from <your key> --chain-id traderswift-1
    ```
 
-**Endorsement.** Under `join: open` you are endorsed at registration. Under `join: endorsed` (Charts and Lockbox) your anchors are on the record with `endorsed: false` and do not count toward the subnet's agreement rule until an endorsed provider of that subnet, or a charter operator, sends `endorse-provider --subnet <subnet> --provider-id <your id>`. For Charts this is mechanical: once your `candle_root` anchors match the endorsed nodes' roots, an endorsed node's operator endorses you on that evidence. You do not message us. Watch it at `/network/v1/provider/<subnet>/<your id>` (`endorsed`, `endorsed_height`) and `/network/v1/endorsements/<subnet>/<your id>`.
+**Endorsement.** Under `join: open` you are endorsed at registration. Under `join: endorsed` (`timeseries` and `signer`) your anchors are on the record with `endorsed: false` and do not count toward the subnet's agreement rule until an endorsed provider of that subnet, or a charter operator, sends `endorse-provider --subnet <subnet> --provider-id <your id>`. For `timeseries` this is mechanical: once your `candle_root` anchors match the endorsed nodes' roots, an endorsed node's operator endorses you on that evidence. You do not message us. Watch it at `/network/v1/provider/<subnet>/<your id>` (`endorsed`, `endorsed_height`) and `/network/v1/endorsements/<subnet>/<your id>`.
 
 **What can stop you.** Only `MsgVeto` from the network admin, on legal or regulatory grounds, with the reason public at `/network/v1/vetoes/<subnet>`. A vetoed provider's anchors are refused from then on; its past anchors stay.
 
