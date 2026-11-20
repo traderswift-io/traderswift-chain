@@ -1,6 +1,6 @@
 # traderswift-chain
 
-traderswift-chain is the shared record behind TraderSwift: who is who, which services exist, and the fingerprints of their data, kept by several independent machines so no one can quietly change it. It holds no money and no token.
+traderswift-chain is the shared record behind TraderSwift: who is who, which services exist, and the fingerprints of their data, kept by four machines that check each other's work. TraderSwift runs all four today, and outside validators can join. It holds no money and no token.
 
 **Just want to see it? Start here:** [what the hub chain is](https://github.com/traderswift-io/traderswift-chain#traderswift-chain), then [the live network files](https://github.com/traderswift-io/traderswift-chain/tree/main/networks/traderswift-1): its chain ID, genesis and peers, readable in the browser. No install, no keys, no sign-up.
 
