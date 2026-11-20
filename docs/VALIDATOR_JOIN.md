@@ -1,5 +1,9 @@
 # Running a traderswift-1 validator
 
+This page is for people who want to run a node that helps keep the hub chain going. You don't need any of it to understand or use TraderSwift.
+
+**Just want to see it? Start here:** [what the hub chain is](https://github.com/traderswift-io/traderswift-chain#traderswift-chain), then [the live network files](https://github.com/traderswift-io/traderswift-chain/tree/main/networks/traderswift-1): its chain ID, genesis and peers, readable in the browser. No install, no keys, no sign-up.
+
 For an outside operator. You run one node that produces blocks on `traderswift-1`, the hub chain every subnet anchors onto. Everything you need is in this repository. You can clone, configure, start and sync without contacting us. The only step that involves us is the last one, adding you to the validator set (section 7).
 
 A validator and a provider are different things. A validator produces blocks and needs us once (section 7). A provider (a timeseries provider, say) offers a subnet's service and anchors its hashes; it joins with no contact at all (section 11).

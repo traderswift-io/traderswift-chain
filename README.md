@@ -1,5 +1,9 @@
 # traderswift-chain
 
+traderswift-chain is the shared record behind TraderSwift: who is who, which services exist, and the fingerprints of their data, kept by several independent machines so no one can quietly change it. It holds no money and no token.
+
+**Just want to see it? Start here:** [what the hub chain is](https://github.com/traderswift-io/traderswift-chain#traderswift-chain), then [the live network files](https://github.com/traderswift-io/traderswift-chain/tree/main/networks/traderswift-1): its chain ID, genesis and peers, readable in the browser. No install, no keys, no sign-up.
+
 The `traderswift-1` hub chain: the common layer every subnet anchors onto. It holds accounts and identity, subnet charters, providers, vetoes, anchors and the validator set. It holds no balances, no token, and no subnet's data; a subnet publishes hashes here and keeps its content in its own store.
 
 Join as a validator or a provider: `docs/VALIDATOR_JOIN.md`. Network files: `networks/traderswift-1/`.
